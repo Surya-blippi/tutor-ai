@@ -10,21 +10,25 @@ export default function DashboardPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-      } else {
-        router.push('/login');
-      }
-    });
+    if (auth) {
+      const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+        if (currentUser) {
+          setUser(currentUser);
+        } else {
+          router.push('/login');
+        }
+      });
 
-    return () => unsubscribe();
+      return () => unsubscribe();
+    }
   }, [router]);
 
   const handleSignOut = () => {
-    auth.signOut().then(() => {
-      router.push('/login');
-    });
+    if (auth) {
+      auth.signOut().then(() => {
+        router.push('/login');
+      });
+    }
   };
 
   if (!user) {

@@ -10,13 +10,15 @@ export default function LoginPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        router.push('/dashboard');
-      }
-    });
+    if (auth) {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+          router.push('/dashboard');
+        }
+      });
 
-    return () => unsubscribe();
+      return () => unsubscribe();
+    }
   }, [router]);
 
   const signInWithGoogle = async () => {
