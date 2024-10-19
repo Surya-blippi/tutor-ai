@@ -12,7 +12,7 @@ export default function LoginPage() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        router.push('/dashboard'); // Redirect to dashboard if user is already signed in
+        router.push('/dashboard');
       }
     });
 
